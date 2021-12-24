@@ -24,7 +24,7 @@ or run in your local:
 
 - [Gitlab](https://www.gitlab.com) CI/CD setup
 - [SonarCloud](https://www.sonarcloud.io) setup
-- [Sentry]https://www.sentry.io) setup
+- [Sentry](https://www.sentry.io) setup
 - [DataDog](https://www.datadoghq.com/) setup (optional)
 - [Yup](https://www.npmjs.com/package/yup) validation integration
 - [Husky](https://github.com/typicode/husky) setup in place for pre-commit and pre-push
