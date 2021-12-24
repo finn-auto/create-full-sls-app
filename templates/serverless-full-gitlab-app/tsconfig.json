@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "lib": ["es2017"],
+    "removeComments": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "target": "es2017",
+    "outDir": ".build"
+  },
+  "typeRoots": ["node_modules/@types"],
+  "include": ["./**/*.ts"],
+  "exclude": [
+    "node_modules/**/*",
+    "tests/**/*",
+    "test/**/*",
+    ".serverless/**/*",
+    ".webpack/**/*",
+    "_warmup/**/*",
+    ".vscode/**/*"
+  ]
+}

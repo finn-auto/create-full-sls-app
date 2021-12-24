@@ -1,0 +1,122 @@
+include:
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
+image: node:14-alpine
+
+<% if (enableSonarCloud) { %>
+variables:
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" # Defines the location of the analysis task cache
+  GIT_DEPTH: "0" # Tells git to fetch all the branches of the project, required by the analysis task
+<% } %>
+
+stages:
+  - test
+  <% if (enableSonarCloud) { %>- analysis<% } %>
+  - deploy
+
+.install_serverless: &install-serverless
+  before_script:
+    - yarn global add serverless --prefix /usr/local
+    - yarn
+
+linting-and-build:
+  stage: test
+  except:
+    - schedules
+  script:
+    - yarn
+    - yarn lint:check
+    - yarn build:check
+  only:
+    - branches
+    - merge_requests
+
+unit-tests:
+  stage: test
+  script:
+    - yarn
+    - yarn test
+    - yarn mocha:gitlab
+  only:
+    - branches
+    - merge_requests
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+      - junit.xml
+    reports:
+      junit:
+        - junit.xml
+
+<% if (enableSonarCloud) { %>
+sonarcloud-check:
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  stage: analysis
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  dependencies:
+    - unit-tests
+  script:
+    - sonar-scanner
+  allow_failure: false
+  only:
+    - branches
+    - merge_requests
+<% } %>
+
+EU - deploy to development:
+  <<: *install-serverless
+  when: manual
+  stage: deploy
+  script:
+    - serverless create_domain --stage development --region eu-central-1
+    - serverless deploy --stage development --verbose --region eu-central-1
+  environment:
+    name: development
+  only:
+    - branches
+    - merge_requests
+
+<% if (enableMultiRegion) { %>
+US - deploy to development:
+  <<: *install-serverless
+  when: manual
+  stage: deploy
+  script:
+    - serverless create_domain --stage development --region us-east-1
+    - serverless deploy --stage development --verbose --region us-east-1
+  environment:
+    name: development
+  only:
+    - branches
+    - merge_requests
+
+<% } %>
+EU - deploy to production:
+  <<: *install-serverless
+  only:
+    - <%= mainBranch %>
+  stage: deploy
+  script:
+    - serverless create_domain --stage production --region eu-central-1
+    - serverless deploy --stage production --verbose --region eu-central-1
+  environment:
+    name: production
+
+<% if (enableSonarCloud) { %>
+US - deploy to production:
+  <<: *install-serverless
+  only:
+    - <%= mainBranch %>
+  stage: deploy
+  script:
+    - serverless create_domain --stage production --region us-east-1
+    - serverless deploy --stage production --verbose --region us-east-1
+  environment:
+    name: production
+<% } %>
