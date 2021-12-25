@@ -90,7 +90,9 @@ const QUESTIONS = [
     default: "empty",
     message: "Enter DataDog ARN for USA:",
     when: (answers: any) =>
-      answers["enableDataDog"] && !yargs.argv["dataDogArnUsEast"],
+      answers["enableDataDog"] &&
+      answers["enableMultiRegion"] &&
+      !yargs.argv["dataDogArnUsEast"],
   },
   {
     name: "memorySize",
