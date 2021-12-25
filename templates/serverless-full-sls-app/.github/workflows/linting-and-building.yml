@@ -1,0 +1,17 @@
+name: Linting and Building
+on:
+  push:
+    branches:
+      - <%= mainBranch %>
+  pull_request:
+    branches:
+      - "*" # matches every branch that doesn't contain a '/'
+      - "*/*" # matches every branch containing a single '/'
+      - "**" # matches every branch
+      - <%= mainBranch %>
+jobs:
+  test:
+    runs-on: node:14-alpine
+    steps:
+      - run: yarn && yarn lint:check && yarn build:check
+      - run: echo "🍏 This job's status is ${{ job.status }}."
