@@ -1,7 +1,13 @@
 {
   "name": "create-full-sls-app",
-  "version": "1.3.3",
+  "description": "Serverless boilerplate CLI tool: GitLab and GitHub CI/CD, DataDog, Multi-Region, and many more setups. Ready-to-deploy in a few seconds!",
+  "version": "1.3.4",
   "main": "src/index.js",
+  "author": "Emin Bugra Saral <combats.refit-03@icloud.com> (https://saral.dev/)",
+  "funding": {
+    "type": "individual",
+    "url": "https://www.getrevue.co/profile/eminbugrasaral"
+  },
   "types": "src/index.d.ts",
   "prepare": "npm run build",
   "postversion": "git push && git push --tags",
@@ -13,6 +19,25 @@
   "bin": "./dist/index.js",
   "repository": "https://github.com/ebsaral/create-full-sls-app",
   "license": "MIT",
+  "url": "https://github.com/ebsaral/create-full-sls-app/issues",
+  "keywords": [
+    "serverless",
+    "gitlab",
+    "github",
+    "datadog",
+    "sonarcloud",
+    "sonarqube",
+    "yup",
+    "aws",
+    "lambda",
+    "aws-lambda",
+    "typescript",
+    "serverless-app",
+    "serverless-app-builder",
+    "serverless-app-creator",
+    "serverless-app-creator-cli",
+    "serverless-app-creator-cli-app"
+  ],
   "devDependencies": {
     "@types/ejs": "^3.1.0",
     "@types/inquirer": "^8.1.3",
