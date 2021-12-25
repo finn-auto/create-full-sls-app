@@ -45,25 +45,25 @@ or run in your local:
 
 # Command List
 
-| name                   | type          | default                 | description                                                |
-| ---------------------- | ------------- | ----------------------- | ---------------------------------------------------------- |
-| template               | choices       | serverless-full-sls-app |                                                            |
-| name                   | strict-string | required                | Project name (e.g dummy-service)                           |
-| organization           | strict-string | required                | Organization name (e.g finn-auto)                          |
-| gitSetup               | choices       | GitLab                  | Options: GitLab, GitHub                                    |
-| mainBranch             | choices       | main                    | Options: main, master                                      |
-| enableSonarCloud       | bool          | Y                       | Setup SonarCloud (Y/n)                                     |
-| enableMultiRegion      | bool          | Y                       | Add us-east-1 and enable multi-region (Y/n)                |
-| enableDataDog          | bool          | Y                       | Enable DataDog in the setup (Y/n)                          |
-| dataDogArnEuCentral    | string        | empty                   | DataDog EU ARN (only if DataDog is enabled)                |
-| dataDogArnUsEast       | string        | empty                   | DataDog US ARN (only if DataDog is enabled)                |
-| memorySize             | number        | 256                     | Memory Size of Lambda in MB                                |
-| timeout                | number        | 10                      | Timeout of API endpoints in seconds                        |
-| minimumCompressionSize | number        | 1024                    | Minimum Compression Size of API Gateway in MB              |
-| maxRequestsPerSecond   | number        | 100                     | API Gateway Throttling Maximum Requests Per Second setting |
-| maxConcurrentRequests  | number        | 50                      | API Gateway Throttling Maximum Concurrent Requests setting |
-| developmentUrl         | string        | dev-service.domain.com  | Development service URL                                    |
-| productionUrl          | string        | service.domain.com      | Production service URL                                     |
+| name                   | type          | default                 | description                                                  |
+| ---------------------- | ------------- | ----------------------- | ------------------------------------------------------------ |
+| template               | choices       | serverless-full-sls-app |                                                              |
+| name                   | strict-string | required                | Project name (e.g dummy-service)                             |
+| organization           | strict-string | required                | Organization name (e.g finn-auto)                            |
+| gitSetup               | choices       | GitLab                  | Options: GitLab, GitHub                                      |
+| mainBranch             | choices       | main                    | Options: main, master                                        |
+| enableSonarCloud       | bool          | Y                       | Setup SonarCloud (Y/n)                                       |
+| enableMultiRegion      | bool          | Y                       | Add us-east-1 and enable multi-region (Y/n)                  |
+| enableDataDog          | bool          | Y                       | Enable DataDog in the setup (Y/n)                            |
+| dataDogArnEuCentral    | string        | empty                   | DataDog EU ARN (only if DataDog is enabled)                  |
+| dataDogArnUsEast       | string        | empty                   | DataDog US ARN (only if DataDog and multi-region is enabled) |
+| memorySize             | number        | 256                     | Memory Size of Lambda in MB                                  |
+| timeout                | number        | 10                      | Timeout of API endpoints in seconds                          |
+| minimumCompressionSize | number        | 1024                    | Minimum Compression Size of API Gateway in MB                |
+| maxRequestsPerSecond   | number        | 100                     | API Gateway Throttling Maximum Requests Per Second setting   |
+| maxConcurrentRequests  | number        | 50                      | API Gateway Throttling Maximum Concurrent Requests setting   |
+| developmentUrl         | string        | dev-service.domain.com  | Development service URL                                      |
+| productionUrl          | string        | service.domain.com      | Production service URL                                       |
 
 Example:
 
