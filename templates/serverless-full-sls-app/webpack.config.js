@@ -21,7 +21,7 @@ module.exports = {
     filename: "[name].js",
   },
   target: "node",
-  externals: [nodeExternals(), "datadog-lambda-js", "dd-trace"],
+  externals: <% if (enableDataDog) { %>[nodeExternals(), "datadog-lambda-js", "dd-trace"]<% } else { %>[nodeExternals()]<% } %>,
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`

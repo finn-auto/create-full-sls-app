@@ -6,8 +6,8 @@ app: <%= projectName %>
 useDotenv: true
 
 plugins:
-  <% if (!enableDataDog) { %>#<% } %>- serverless-plugin-datadog
-  - serverless-dotenv-plugin
+  <% if (enableDataDog) { %>- serverless-plugin-datadog
+  <% } %>- serverless-dotenv-plugin
   - serverless-webpack
   - serverless-domain-manager
   - serverless-api-gateway-throttling
@@ -48,11 +48,11 @@ custom:
   environments:
     local: development
     development: development
-    production: production
+    production: production<% if (enableDataDog) { %>
   dd_enabled:
     local: false
     development: false
-    production: <% if (enableDataDog) { %>true<% } else { %>false<% } %>
+    production: true
   datadogArn:
     eu-central-1: <%= dataDogArnEuCentral %>
     us-east-1: <%= dataDogArnUsEast %>
@@ -60,7 +60,7 @@ custom:
     enabled: ${self:custom.dd_enabled.${self:provider.stage}, false}
     site: datadoghq.eu # TODO: Adjust this value if it's in US
     subscribeToApiGatewayLogs: false
-    forwarder: ${self:custom.datadogArn.${opt:region, 'eu-central-1'}}
+    forwarder: ${self:custom.datadogArn.${opt:region, 'eu-central-1'}}<% } %>
   domains:
     local: localhost
     development: <%= developmentUrl %>
@@ -69,13 +69,11 @@ custom:
     domainName: ${self:custom.domains.${self:provider.stage}}
     basePath: ""
     stage: ${self:provider.stage}
-    createRoute53Record: true
-    <% if (enableMultiRegion) { %>
+    createRoute53Record: true<% if (enableMultiRegion) { %>
     endpointType: "regional"
     certificateRegion: ${opt:region, 'eu-central-1'}
     route53Params:
-      routingPolicy: latency
-    <% } %>
+      routingPolicy: latency<% } %>
   corsAllowedHeaders:
     - Accept-Language
     - Accept-Encoding

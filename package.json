@@ -1,7 +1,7 @@
 {
   "name": "create-full-sls-app",
   "description": "Serverless boilerplate CLI tool: GitLab and GitHub CI/CD, DataDog, Multi-Region, and many more setups. Ready-to-deploy in a few seconds!",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "main": "src/index.js",
   "author": "Emin Bugra Saral <combats.refit-03@icloud.com> (https://saral.dev/)",
   "funding": {
