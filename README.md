@@ -43,7 +43,7 @@ or run in your local:
 - A regional setup and default region is `eu-central`
 - Multi-Region support (adding `us-east1`) (optional)
 
-# Command List
+# Command Options List
 
 | name                   | type          | default                 | description                                                  |
 | ---------------------- | ------------- | ----------------------- | ------------------------------------------------------------ |
