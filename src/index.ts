@@ -46,7 +46,7 @@ const QUESTIONS = [
     type: "list",
     message: "Choose your Git setup:",
     choices: GIT_CHOISES,
-    when: () => !yargs.argv["gitHost"],
+    when: () => !yargs.argv["gitSetup"],
   },
   {
     name: "mainBranch",
@@ -139,7 +139,7 @@ const QUESTIONS = [
     type: "input",
     default: "service.domain.com",
     message: "What's your production url?:",
-    when: () => !yargs.argv["productiontUrl"],
+    when: () => !yargs.argv["productionUrl"],
   },
 ];
 
