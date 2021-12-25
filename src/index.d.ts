@@ -28,4 +28,5 @@ export interface TemplateData {
   minimumCompressionSize: number;
   maxRequestsPerSecond: number;
   maxConcurrentRequests: number;
+  gitSetup: "GitLab" | "GitHub";
 }

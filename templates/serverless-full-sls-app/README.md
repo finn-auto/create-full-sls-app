@@ -6,9 +6,10 @@ This is a template project written in TypeScript, ready to be deployed to [Serve
 # What's included?
 
 - [Gitlab](https://www.gitlab.com) CI/CD setup
-- [SonarCloud](https://www.sonarcloud.io) setup
-- [Sentry]https://www.sentry.io) setup
+- or [GitHub](https://www.github.com] Actions setup (not fully complete)
+- [SonarCloud](https://www.sonarcloud.io) setup (optional)
 - [DataDog](https://www.datadoghq.com/) setup (optional)
+- [Sentry](https://www.sentry.io) setup
 - [Yup](https://www.npmjs.com/package/yup) validation integration
 - [Husky](https://github.com/typicode/husky) setup in place for pre-commit and pre-push
 - Example API endpoint (with [middy](https://www.npmjs.com/package/middy) package)
@@ -18,5 +19,7 @@ This is a template project written in TypeScript, ready to be deployed to [Serve
 
 # Development
 
-`yarn`
-`yarn start:local`
+```
+yarn
+yarn start:local
+```

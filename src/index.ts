@@ -9,6 +9,7 @@ import * as yargs from "yargs";
 const chalk = require("chalk");
 
 const CHOICES = fs.readdirSync(path.join(__dirname, "templates"));
+const GIT_CHOISES = ["GitLab", "GitHub"];
 
 const QUESTIONS = [
   {
@@ -41,10 +42,26 @@ const QUESTIONS = [
     },
   },
   {
+    name: "gitSetup",
+    type: "list",
+    message: "Choose your Git setup:",
+    choices: GIT_CHOISES,
+    when: () => !yargs.argv["gitHost"],
+  },
+  {
+    name: "mainBranch",
+    type: "list",
+    message: "What's your main branch?:",
+    choices: ["main", "master"],
+    default: "main",
+    when: () => !yargs.argv["mainBranch"],
+  },
+  {
     name: "enableSonarCloud",
     type: "confirm",
     message: "Would you like to EnableSonarCloud?:",
-    when: () => !yargs.argv["enableSonarCloud"],
+    when: (answers: any) =>
+      answers["gitSetup"] === "GitLab" && !yargs.argv["enableSonarCloud"],
   },
   {
     name: "enableMultiRegion",
@@ -74,14 +91,6 @@ const QUESTIONS = [
     message: "Enter DataDog ARN for USA:",
     when: (answers: any) =>
       answers["enableDataDog"] && !yargs.argv["dataDogArnUsEast"],
-  },
-  {
-    name: "mainBranch",
-    type: "list",
-    message: "What's your main branch?:",
-    choices: ["main", "master"],
-    default: "main",
-    when: () => !yargs.argv["mainBranch"],
   },
   {
     name: "memorySize",
@@ -166,6 +175,7 @@ export interface TemplateData {
   minimumCompressionSize: number;
   maxRequestsPerSecond: number;
   maxConcurrentRequests: number;
+  gitSetup: "GitLab" | "GitHub";
 }
 
 inquirer.prompt(QUESTIONS).then((answers: any) => {
@@ -187,6 +197,7 @@ inquirer.prompt(QUESTIONS).then((answers: any) => {
   const minimumCompressionSize = answers["minimumCompressionSize"];
   const maxRequestsPerSecond = answers["maxRequestsPerSecond"];
   const maxConcurrentRequests = answers["maxConcurrentRequests"];
+  const gitSetup = answers["gitSetup"];
 
   const templatePath = path.join(__dirname, "templates", projectChoice);
   const tartgetPath = path.join(CURR_DIR, projectName);
@@ -221,18 +232,21 @@ inquirer.prompt(QUESTIONS).then((answers: any) => {
     maxConcurrentRequests,
     organization,
     projectPath: path.join(CURR_DIR, projectName),
+    gitSetup,
   };
-  console.log(path.join(CURR_DIR, projectName));
   createDirectoryContents(templatePath, templateData, templateConfig);
-  const readEnvFrom = path.join(
-    CURR_DIR,
-    templateData.projectName,
-    "example.env"
-  );
-  let envContents = fs.readFileSync(readEnvFrom, "utf8");
-  envContents = template.render(envContents, templateData);
-  const writeEnvTo = path.join(CURR_DIR, templateData.projectName, ".env");
-  fs.writeFileSync(writeEnvTo, envContents, "utf8");
+  // Create .env file
+  try {
+    const readEnvFrom = path.join(
+      CURR_DIR,
+      templateData.projectName,
+      "example.env"
+    );
+    let envContents = fs.readFileSync(readEnvFrom, "utf8");
+    envContents = template.render(envContents, templateData);
+    const writeEnvTo = path.join(CURR_DIR, templateData.projectName, ".env");
+    fs.writeFileSync(writeEnvTo, envContents, "utf8");
+  } catch (e) {}
 
   // Disable postProcess
   // if (!postProcess(options)) {
@@ -329,9 +343,22 @@ function createDirectoryContents(
   const filesToCreate = fs.readdirSync(currentFolder);
 
   filesToCreate.forEach((file) => {
-    if (
+    const shouldIgnoreSonarSetup =
       !templateData.enableSonarCloud &&
-      file.includes("sonar-project.properties")
+      file.includes("sonar-project.properties");
+    const shouldIgnoreGithubSetup =
+      templateData.gitSetup === "GitLab" &&
+      (file.includes("linting-and-building.yml") ||
+        file.includes("unit-tests.yml") ||
+        file.includes(".github") ||
+        file.includes("workflows"));
+    const shouldIgnoreGitlabSetup =
+      templateData.gitSetup === "GitHub" && file.includes(".gitlab-ci.yml");
+
+    if (
+      shouldIgnoreSonarSetup ||
+      shouldIgnoreGithubSetup ||
+      shouldIgnoreGitlabSetup
     ) {
       return;
     }
