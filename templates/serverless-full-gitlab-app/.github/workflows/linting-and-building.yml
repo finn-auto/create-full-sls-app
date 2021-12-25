@@ -1,8 +1,0 @@
-name: Linting and Building
-on: [pull_request, push]
-jobs:
-  test:
-    runs-on: node:14-alpine
-    steps:
-      - run: yarn && yarn lint:check && yarn build:check
-      - run: echo "🍏 This job's status is ${{ job.status }}."

@@ -1,6 +1,6 @@
 {
   "name": "create-full-sls-app",
-  "version": "1.2.2",
+  "version": "1.3.1",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "prepare": "npm run build",
