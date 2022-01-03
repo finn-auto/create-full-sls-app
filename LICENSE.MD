@@ -1,4 +1,4 @@
-Copyright (c) 2021 Emin Bugra Saral (saral.dev)
+Copyright (c) 2022 FINN GmbH (www.finn.auto)
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

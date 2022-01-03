@@ -84,4 +84,4 @@ Feel free to create a PR to add a new feature or update the current tool. :)
 
 ---
 
-Author: [Emin Bugra Saral](https://www.saral.dev) <3
+Author: [FINN](https://github.com/finn-auto)

@@ -1,13 +1,9 @@
 {
   "name": "create-full-sls-app",
   "description": "Serverless boilerplate CLI tool: GitLab and GitHub CI/CD, DataDog, Multi-Region, and many more setups. Ready-to-deploy in a few seconds!",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "main": "src/index.js",
-  "author": "Emin Bugra Saral <combats.refit-03@icloud.com> (https://saral.dev/)",
-  "funding": {
-    "type": "individual",
-    "url": "https://paypal.me/ebsaral"
-  },
+  "author": "Emin Bugra Saral <e@finn.auto>",
   "types": "src/index.d.ts",
   "prepare": "npm run build",
   "postversion": "git push && git push --tags",
@@ -17,9 +13,9 @@
     "build": "tsc && shx rm -rf dist/templates && shx cp -r templates dist"
   },
   "bin": "./dist/index.js",
-  "repository": "https://github.com/ebsaral/create-full-sls-app",
+  "repository": "https://github.com/finn-auto/create-full-sls-app",
   "license": "MIT",
-  "url": "https://github.com/ebsaral/create-full-sls-app/issues",
+  "url": "https://github.com/finn-auto/create-full-sls-app/issues",
   "keywords": [
     "serverless",
     "gitlab",
@@ -36,7 +32,8 @@
     "serverless-app-builder",
     "serverless-app-creator",
     "serverless-app-creator-cli",
-    "serverless-app-creator-cli-app"
+    "serverless-app-creator-cli-app",
+    "finn"
   ],
   "devDependencies": {
     "@types/ejs": "^3.1.0",
